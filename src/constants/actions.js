@@ -1,0 +1,2 @@
+export const ADD_CHILD = "ADD_CHILD";
+export const GET_RELATIONSHIP = "GET_RELATIONSHIP";

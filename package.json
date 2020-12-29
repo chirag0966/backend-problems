@@ -1,0 +1,11 @@
+{
+  "name": "family",
+  "version": "1.0.0",
+  "main": "geektrust.js",
+  "author": "chirag bhaiji",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "sqlite3": "^5.0.0"
+  }
+}
