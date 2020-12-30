@@ -1,16 +1,13 @@
-import { addChild, getRelatives } from "./src/services/StoreService.js";
+import execute from "./src/commands/index.js";
+import fs from "fs";
 
-setTimeout(() => {
-  addChild("Satya", "Ketu", "Male");
-}, 100);
+const filename = process.argv[2];
 
-setTimeout(() => {
-  getRelatives("Kriya", "Paternal-Uncle", (members) => console.log(members));
-  getRelatives("Satvy", "Brother-In-Law", (members) => console.log(members));
-}, 500);
+fs.readFile(filename, function (err, data) {
+  parseInput(data.toString());
+});
 
-setTimeout(() => {
-  getRelatives("Satvy", "Sister-In-Law", (members) => console.log(members));
-  getRelatives("Ish", "Son", (members) => console.log(members));
-  getRelatives("Misha", "Daughter", (members) => console.log(members));
-}, 1000);
+const parseInput = (input) => {
+  const statements = input.split("\n").filter((line) => line.trim().length);
+  statements.forEach((statement) => execute(statement));
+};
