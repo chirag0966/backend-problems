@@ -1,20 +1,22 @@
-import addChild from "./addChild.js";
-import getRelationship from "./getRelatives.js";
-import * as actions from "../constants/actions.js";
+import addChild from './addChild.js';
+import getRelationship from './getRelatives.js';
+import * as ACTIONS from '../constants/actions.js';
+import * as RESPONSES from '../constants/responses.js';
 
 const execute = (statement) => {
   // First word to be the action and rest the params
-  let [action, ...params] = statement.split(" ");
+  const [action, ...params] = statement.split(' ');
 
   switch (action) {
-    case actions.ADD_CHILD:
+    case ACTIONS.ADD_CHILD:
       addChild(...params);
       break;
-    case actions.GET_RELATIONSHIP:
+    case ACTIONS.GET_RELATIONSHIP:
       getRelationship(...params);
       break;
     default:
-      console.log("UNKNOWN COMMAND");
+      // eslint-disable-next-line no-console
+      console.log(RESPONSES.UNKNOWN_ACTION);
   }
 };
 
