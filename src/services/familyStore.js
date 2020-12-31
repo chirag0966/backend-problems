@@ -1,5 +1,5 @@
 // Mocked family members data
-import familyMembers from '../mockedData/familyMembers.js';
+import family from '../stores/family.js';
 
 import * as RESPONSES from '../constants/responses.js';
 import { GENDER, RELATION } from '../constants/enums.js';
@@ -9,7 +9,7 @@ const getSiblings = (member, gender = null) => {
     return [];
   }
 
-  const siblings = familyMembers.filter(
+  const siblings = family.filter(
     (fm) => fm.parentId === member.parentId && fm.name !== member.name,
   );
 
@@ -25,9 +25,9 @@ const getPaternal = (member, gender) => {
     return [];
   }
   // get mother for the member
-  const mother = familyMembers.find((fm) => fm.name === member.parentId);
+  const mother = family.find((fm) => fm.name === member.parentId);
   // get father for the member
-  const father = familyMembers.find((fm) => fm.name === mother.spouseId);
+  const father = family.find((fm) => fm.name === mother.spouseId);
   const siblingsOfFather = getSiblings(father, gender).map(
     (fm) => fm.name,
   );
@@ -39,7 +39,7 @@ const getMaternal = (member, gender) => {
     return [];
   }
   // get mother for the member
-  const mother = familyMembers.find((fm) => fm.name === member.parentId);
+  const mother = family.find((fm) => fm.name === member.parentId);
   const siblingsOfMother = getSiblings(mother, gender).map(
     (fm) => fm.name,
   );
@@ -49,13 +49,13 @@ const getMaternal = (member, gender) => {
 
 const getChildren = (member, gender) => {
   if (member.gender === GENDER.FEMALE) {
-    const children = familyMembers
+    const children = family
       .filter((fm) => fm.parentId === member.name && fm.gender === gender)
       .map((fm) => fm.name);
     return children;
   }
   if (member.spouseId) {
-    const children = familyMembers
+    const children = family
       .filter((fm) => fm.parentId === member.spouseId && fm.gender === gender)
       .map((fm) => fm.name);
     return children;
@@ -67,7 +67,6 @@ const getInLaws = (member, gender) => {
   const inLaws = [];
 
   const spouseOfSiblings = getSiblings(
-    familyMembers,
     member,
     gender === GENDER.MALE ? GENDER.FEMALE : GENDER.MALE,
   );
@@ -77,7 +76,7 @@ const getInLaws = (member, gender) => {
   }
 
   if (member.spouseId !== null) {
-    const spouse = familyMembers.find((fm) => fm.name === member.spouseId);
+    const spouse = family.find((fm) => fm.name === member.spouseId);
     const siblingsOfSpouse = getSiblings(spouse, gender);
 
     if (siblingsOfSpouse && siblingsOfSpouse.length !== 0) {
@@ -89,7 +88,7 @@ const getInLaws = (member, gender) => {
 };
 
 const addChildToStore = (motherName, childName, gender) => {
-  const memberAlreadyExists = familyMembers.filter(
+  const memberAlreadyExists = family.filter(
     (fm) => fm.name === childName,
   ).length;
 
@@ -99,10 +98,10 @@ const addChildToStore = (motherName, childName, gender) => {
     return;
   }
 
-  const mother = familyMembers.find((fm) => fm.name === motherName);
+  const mother = family.find((fm) => fm.name === motherName);
   if (mother) {
     if (mother.gender === GENDER.FEMALE) {
-      familyMembers.push({
+      family.push({
         name: childName,
         gender,
         parentId: motherName,
@@ -121,7 +120,7 @@ const addChildToStore = (motherName, childName, gender) => {
 };
 
 const getRelativesFromStore = (name, relation) => {
-  const member = familyMembers.find((fm) => fm.name === name);
+  const member = family.find((fm) => fm.name === name);
 
   if (member === undefined || member === null) {
     return [RESPONSES.PERSON_NOT_FOUND];

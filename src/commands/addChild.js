@@ -1,5 +1,5 @@
 import * as RESPONSES from '../constants/responses.js';
-import { addChildToStore } from '../services/StoreService.js';
+import { addChildToStore } from '../services/familyStore.js';
 
 const addChild = (motherName, childName, gender) => {
   if (!(motherName && childName && gender)) {

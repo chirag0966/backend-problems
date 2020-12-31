@@ -5,6 +5,9 @@
   "author": "chirag bhaiji",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "start": "node --no-warnings --experimental-modules geektrust.js"
+  },
   "devDependencies": {
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",

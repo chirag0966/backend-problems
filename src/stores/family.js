@@ -1,4 +1,4 @@
-const familyMembers = [
+const family = [
   {
     name: 'Queen Anga',
     gender: 'Female',
@@ -187,4 +187,4 @@ const familyMembers = [
   },
 ];
 
-export default familyMembers;
+export default family;

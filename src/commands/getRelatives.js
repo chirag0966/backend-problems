@@ -1,4 +1,4 @@
-import { getRelativesFromStore } from '../services/StoreService.js';
+import { getRelativesFromStore } from '../services/familyStore.js';
 import * as RESPONSES from '../constants/responses.js';
 
 const getRelatives = (name, relation) => {
